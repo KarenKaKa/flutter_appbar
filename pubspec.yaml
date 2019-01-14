@@ -52,6 +52,7 @@ flutter:
     - images/find.png
     - images/find_selected.png
     - images/time_selected_bg.png
+    - images/separator.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
