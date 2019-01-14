@@ -5,6 +5,7 @@
 
 ![image](https://github.com/KarenKaKa/flutter_appbar/blob/master/images/appbar.gif)
 ![image](https://github.com/KarenKaKa/flutter_appbar/blob/master/images/separator.gif)
+![image](https://github.com/KarenKaKa/flutter_appbar/blob/master/images/nestedscrollview.gif)
 
 ### TabBar选中背景图片：
 ```java
@@ -130,5 +131,63 @@ Widget _tabBarItem(String title, {bool showRightImage = true}) {
     ],
   ));
 }
+```
+
+### NestedScrollView+TabBar+TabBarView实现顶部收缩
+```java
+@override
+Widget build(BuildContext context) {
+  double statusBarHeight = MediaQuery.of(context).padding.top;
+
+  ///轮播图高度
+  double _swiperHeight = 326 + 10.0;
+
+  ///提示头部高度
+  double _spikeHeight = 80;
+
+  ///_appBarHeight算的是AppBar的bottom高度，kToolbarHeight是APPBar高，statusBarHeight是状态栏高度
+  double _appBarHeight =
+      _swiperHeight + _spikeHeight - kToolbarHeight - statusBarHeight;
+
+  return NestedScrollView(
+    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+      return <Widget>[
+        SliverOverlapAbsorber(
+          handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          child: SliverAppBar(
+            backgroundColor: Color(0xfff1f1f1),
+            forceElevated: innerBoxIsScrolled,
+            bottom: PreferredSize(
+                child: Container(),
+                preferredSize: Size.fromHeight(_appBarHeight)),
+
+            ///TabBar顶部收缩的部分
+            flexibleSpace: Column(
+              children: <Widget>[
+                _swiper(),
+                _spike(),
+              ],
+            ),
+          ),
+        ),
+
+        ///停留在顶部的TabBar
+        SliverPersistentHeader(
+          delegate: _SliverAppBarDelegate(_timeSelection()),
+          pinned: true,
+        ),
+      ];
+    },
+    body: TabBarView(controller: _timeTabController, children: <Widget>[
+      _listItem(),
+      _listItem(),
+      _listItem(),
+      _listItem(),
+      _listItem(),
+      _listItem(),
+    ]),
+  );
+}
+
 ```
 
