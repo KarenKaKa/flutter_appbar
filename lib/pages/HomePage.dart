@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage>
     super.initState();
     _timeTabController =
         TabController(vsync: this, initialIndex: 0, length: timeTabs.length);
+    ///监听TabController的动画，实时刷新，这样选中背景就能跟随移动了
     _timeTabController.animation.addListener(() {
       setState(() {});
     });
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage>
         Positioned(
           width: width / 6,
           height: 55,
+          ///一行有6个Tab，每次移动的距离=当前移动到的位置*单个tab的宽
           left: _timeTabController.animation.value * width / 6,
           child: Image.asset(
             "images/time_selected_bg.png",
