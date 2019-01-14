@@ -26,14 +26,10 @@ Widget _tabBarItem(String title, {bool showRightImage = true}) {
               width: 1,
               margin: EdgeInsets.only(top: 15, bottom: 15),
               color: Colors.red,
-//              child: Icon(
-//                Icons.delete,
-//              ),
             )
           : Container(
               width: 1,
               margin: EdgeInsets.only(top: 15, bottom: 15),
-//              child: Icon(Icons.adb),
             )
     ],
   ));
