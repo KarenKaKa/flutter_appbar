@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_appbar/model/GoodsItemModel.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class HomeItemPage extends StatefulWidget {
@@ -7,11 +6,19 @@ class HomeItemPage extends StatefulWidget {
   _HomeItemPageState createState() => _HomeItemPageState();
 }
 
-Widget _timeTabBarItem(String title) {
+Widget _timeTabBarItem(String title, String subTitle) {
   return Tab(
-      child: Text(
-    title,
-    style: TextStyle(color: Colors.white, fontSize: 18),
+      child: Column(
+    children: <Widget>[
+      Text(
+        title,
+        style: TextStyle(color: Colors.white, fontSize: 18),
+      ),
+      Text(
+        subTitle,
+        style: TextStyle(color: Colors.white, fontSize: 12),
+      )
+    ],
   ));
 }
 
@@ -20,20 +27,20 @@ class _HomeItemPageState extends State<HomeItemPage>
         SingleTickerProviderStateMixin,
         AutomaticKeepAliveClientMixin<HomeItemPage> {
   TabController _timeTabController;
-  List<GoodsItemModel> topList = List();
+  List<String> topList = List();
   List<Tab> timeTabs = <Tab>[
-    _timeTabBarItem("10:00"),
-    _timeTabBarItem("13:00"),
-    _timeTabBarItem("15:00"),
-    _timeTabBarItem("17:00"),
-    _timeTabBarItem("19:00"),
-    _timeTabBarItem("21:00"),
+    _timeTabBarItem("10:00", "抢购中"),
+    _timeTabBarItem("13:00", "即将开始"),
+    _timeTabBarItem("15:00", "即将开始"),
+    _timeTabBarItem("17:00", "即将开始"),
+    _timeTabBarItem("19:00", "即将开始"),
+    _timeTabBarItem("21:00", "即将开始"),
   ];
 
   Widget _swiperBuilder(BuildContext context, int index) {
     return Image.asset(
-      topList[index].img,
-      fit: BoxFit.fill,
+      topList[index],
+      fit: BoxFit.cover,
     );
   }
 
@@ -66,24 +73,12 @@ class _HomeItemPageState extends State<HomeItemPage>
   Widget _spike() {
     return Container(
       color: Colors.white,
-      width: double.infinity,
+      alignment: Alignment.center,
       height: 80,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "这是选择时间的提示头部",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "SALE",
-            style: TextStyle(
-                letterSpacing: 10, fontSize: 12, color: Color(0xff7d7d7d)),
-          )
-        ],
+      child: Text(
+        "品牌秒杀",
+        style: TextStyle(
+            color: Colors.red, fontSize: 22, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -122,6 +117,9 @@ class _HomeItemPageState extends State<HomeItemPage>
           tabs: timeTabs,
           controller: _timeTabController,
           isScrollable: false,
+          unselectedLabelColor: Colors.black,
+          labelStyle:
+              TextStyle(color: Colors.blue, fontWeight: FontWeight.w500),
           indicatorColor: Colors.transparent,
         )
       ],
@@ -136,9 +134,9 @@ class _HomeItemPageState extends State<HomeItemPage>
     _timeTabController.animation.addListener(() {
       setState(() {});
     });
-    topList.add(GoodsItemModel(name: "name1", img: "images/bg1.jpg"));
-    topList.add(GoodsItemModel(name: "name2", img: "images/bg2.jpg"));
-    topList.add(GoodsItemModel(name: "name3", img: "images/bg.jpg"));
+    topList.add("images/bg1.jpg");
+    topList.add("images/bg2.jpg");
+    topList.add("images/bg.jpg");
   }
 
   @override
@@ -147,14 +145,16 @@ class _HomeItemPageState extends State<HomeItemPage>
     super.dispose();
   }
 
-  Widget _listItem() {
+  Widget _listItem(int index) {
     return Container(
       color: Colors.white,
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.all(0),
         itemCount: 5,
-        itemBuilder: (context, i) => Image.asset("images/bg1.jpg"),
+        itemBuilder: (context, i) => Image.asset(index % 2 == 0
+            ? "images/bg.jpg"
+            : index % 3 == 0 ? "images/bg1.jpg" : "images/bg2.jpg",fit: BoxFit.cover,),
       ),
     );
   }
@@ -193,12 +193,12 @@ class _HomeItemPageState extends State<HomeItemPage>
         ];
       },
       body: TabBarView(controller: _timeTabController, children: <Widget>[
-        _listItem(),
-        _listItem(),
-        _listItem(),
-        _listItem(),
-        _listItem(),
-        _listItem(),
+        _listItem(1),
+        _listItem(2),
+        _listItem(3),
+        _listItem(4),
+        _listItem(5),
+        _listItem(6),
       ]),
     );
   }

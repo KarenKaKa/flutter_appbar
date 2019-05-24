@@ -42,16 +42,6 @@ flutter:
     - images/bg.jpg
     - images/bg1.jpg
     - images/bg2.jpg
-    - images/home.png
-    - images/home_selected.png
-    - images/category.png
-    - images/category_selected.png
-    - images/cart.png
-    - images/cart_selected.png
-    - images/mine.png
-    - images/mine_selected.png
-    - images/find.png
-    - images/find_selected.png
     - images/time_selected_bg.png
     - images/separator.png
 

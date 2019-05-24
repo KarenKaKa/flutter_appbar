@@ -80,19 +80,19 @@ class _HomePageState extends State<FindPage>
                   children: <Widget>[
                 Image.asset(
                   "images/bg1.jpg",
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
                 Image.asset(
                   "images/bg2.jpg",
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
                 Image.asset(
                   "images/bg.jpg",
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
                 Image.asset(
                   "images/bg1.jpg",
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 )
               ])),
         ],
